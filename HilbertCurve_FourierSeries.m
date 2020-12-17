@@ -48,6 +48,10 @@ end
 
 %% Animation
 
+if exist('epicycles', 'dir')
+    mkdir('epicycles')
+end
+
 tt = linspace(0, 2 * pi, 100);
 cc = complex(cos(tt), sin(tt));
 col = [0.23 0.35 0.43];
@@ -81,7 +85,7 @@ for ki = 1 : K/30
     set(gca,'YColor','none')
     axis([-3 3 -1.6875 1.6875])
     
-    name = ['animationTemp2\frame_' num2str(ki,'%0.3d')];
+    name = ['epicycles\frame_' num2str(ki,'%0.3d')];
     print(name, '-painters', '-dpng', '-r180')
     A = imread([name '.png']);
     imwrite(A((1:1080)+270, (1:1920)+593, :), [name '.png'])
@@ -94,6 +98,10 @@ x0 = 10;
 a = (N * x0 - Ni) / (N - Ni);
 b = (1 - x0) / (N - Ni);
 xn = @(n) round(a + b * n);
+
+if exist('interpolation', 'dir')
+    mkdir('interpolation')
+end
 
 fO = 0;
 for n = Ni+2 : 2 : N
@@ -115,7 +123,7 @@ for n = Ni+2 : 2 : N
             'Color', 'w', 'FontSize', 14)
         
         fO = fO + 1;
-        name = ['animationTemp\frame_' num2str(fO,'%0.4d')];
+        name = ['interpolation\frame_' num2str(fO,'%0.4d')];
         print(name, '-painters', '-dpng', '-r180')
         A = imread([name '.png']);
         imwrite(A((1:1080)+270, (1:1920)+593, :), [name '.png'])
